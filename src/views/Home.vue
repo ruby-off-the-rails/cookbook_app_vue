@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    <button v-on:click="addRecipe()">Add a new recipe</button>
     <div v-for="recipe in recipes">
      <p>title: {{ recipe.title }}</p>
      <p>ingredients: {{ recipe.ingredients }}</p>
@@ -38,6 +39,22 @@ export default {
       this.recipes = response.data;
     });
   },
-  methods: {}
+  methods: {
+    addRecipe: function() {
+      console.log('adding the receip...');
+
+      var params = {
+        chef: "brian",
+        title: "croissant",
+        ingredients: "flour, butter, heat",
+        directions: "heat the flour",
+        prep_time: 10
+      };
+
+      axios.post("/api/recipes", params).then(response => {
+        console.log(response.data);
+      });
+    }
+  }
 };
 </script>
