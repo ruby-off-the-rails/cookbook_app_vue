@@ -1,8 +1,10 @@
 <template>
   <div class="home">
     <div v-for="recipe in recipes">
-     <p>{{ recipe.title }}</p>
-     <p>{{ recipe.ingredients }}</p>
+     <p>title: {{ recipe.title }}</p>
+     <p>ingredients: {{ recipe.ingredients }}</p>
+     <p>{{ recipe.image_url }}</p>
+     <img v-bind:src="recipe.image_url" v-bind:alt="recipe.title">
      <br>
 
      <hr>
