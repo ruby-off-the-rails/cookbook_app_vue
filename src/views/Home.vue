@@ -9,16 +9,19 @@
     <div v-for="recipe in recipes">
      <p>title: {{ recipe.title }}</p>
      <p>ingredients: {{ recipe.ingredients }}</p>
-     <p>{{ recipe.image_url }}</p>
      <img v-bind:src="recipe.image_url" v-bind:alt="recipe.title">
      <br>
 
+     <button v-on:click="toggleInfo(recipe)">See more info</button>
+
+     <div v-if="currentRecipe === recipe">
+       <p>prep_time: {{ recipe.prep_time }}</p>
+       <p>directions: {{ recipe.directions }}</p>
+     </div>
      <hr>
     </div>
 
-    <h1>{{ message }}</h1>
-    <h1>{{ name }}</h1>
-    <h1>{{ recipes }}</h1>
+
   </div>
 </template>
 
@@ -40,6 +43,7 @@ export default {
       newRecipeIngredients: "",
       newRecipePrepTime: "",
       newRecipeDirections: "",
+      currentRecipe: {}
     };
   },
   created: function() {
@@ -71,6 +75,11 @@ export default {
         this.newRecipePrepTime = "";
         this.newRecipeDirections = "";
       });
+    },
+    toggleInfo: function(theRecipe) {
+      console.log(theRecipe);
+      this.currentRecipe = theRecipe;
+      console.log('in toggle info...');
     }
   }
 };
