@@ -25,6 +25,7 @@
         <p>Prep Time: <input type="text" v-model="recipe.prep_time"></p>
         <p>Chef: <input type="text" v-model="recipe.chef"></p>
         <button v-on:click="updateRecipe(recipe)">Update the recipe</button>
+        <button v-on:click="destroyRecipe(recipe)">Destroy Recipe</button>
       </div>
      <hr>
     </div>
@@ -112,6 +113,22 @@ export default {
         theRecipe.ingredients = response.data.ingredients;
         theRecipe.prep_time = response.data.prep_time;
         theRecipe.chef = response.data.chef;
+      });
+    },
+    destroyRecipe: function(theRecipe) {
+      // tell rails to delete the recipe
+      console.log(theRecipe);
+        // remove the recipe from the screen
+        // find the index in the array
+        // remove that index from the array
+
+
+      axios.delete(`/api/recipes/${theRecipe.id}`).then(response => {
+        console.log(response.data);
+        var index = this.recipes.indexOf(theRecipe);
+        console.log(index);
+        this.recipes.splice(index, 1);
+
       });
     }
   }
