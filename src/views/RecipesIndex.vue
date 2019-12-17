@@ -3,8 +3,11 @@
     <h1>{{ message }}</h1>
 
     <div v-for="recipe in recipes">
-      <p>{{ recipe.title }}</p>
-      <p>{{ recipe.chef }}</p>
+      <p>{{recipe}}</p>
+      <p>id: {{ recipe.id }}</p>
+      <p>title: {{ recipe.title }}</p>
+      <p>chef: {{ recipe.chef }}</p>
+      <p>user_id: {{ recipe.user_id }}</p>
       <hr>
     </div>
   </div>
