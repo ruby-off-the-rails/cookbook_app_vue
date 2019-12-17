@@ -56,6 +56,7 @@ export default {
     };
   },
   created: function() {
+    console.log(axios.defaults.headers.common["Authorization"]);
     console.log('i am in created');
     axios.get("/api/recipes").then(response => {
       console.log(response.data);
