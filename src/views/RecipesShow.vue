@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    <button v-on:click="deleteRecipe()">Delete your recipe</button>
     <h1>{{ message }}</h1>
     <h1>{{ recipe.id }}</h1>
     <h1>{{ recipe.title }}</h1>
@@ -31,6 +32,14 @@ export default {
       this.recipe = response.data;
     });
   },
-  methods: {}
+  methods: {
+    deleteRecipe: function() {
+      console.log('deleting recipe');
+      // make a delete request to the API with the correct id
+      axios.delete(`/api/recipes/${this.$route.params.id}`).then(response => {
+        this.$router.push("/recipes");
+      });
+    }
+  }
 };
 </script>
