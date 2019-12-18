@@ -3,11 +3,12 @@
     <h1>{{ message }}</h1>
 
     <div v-for="recipe in recipes">
-      <p>{{recipe}}</p>
+
       <p>id: {{ recipe.id }}</p>
       <p>title: {{ recipe.title }}</p>
+      <router-link v-bind:to="`/recipes/${recipe.id}`">go to the show page</router-link>
       <p>chef: {{ recipe.chef }}</p>
-      <p>user_id: {{ recipe.user_id }}</p>
+
       <hr>
     </div>
   </div>
