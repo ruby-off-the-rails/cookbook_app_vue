@@ -2,6 +2,7 @@
   <div class="home">
     <h1>{{ message }}</h1>
     <h1>{{ recipe.id }}</h1>
+    <h1>{{ recipe.title }}</h1>
     <h1>{{ recipe.chef }}</h1>
     <h1>{{ recipe.ingredients }}</h1>
     <h1>{{ recipe.directions }}</h1>
