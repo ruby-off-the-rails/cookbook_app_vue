@@ -6,7 +6,14 @@
     <p>Add the PrepTime of your new recipe here<input type="text" v-model="newRecipePrepTime"></p>
     <p>Add the Directions of your new recipe here<input type="text" v-model="newRecipeDirections"></p>
     <button v-on:click="addRecipe()">Add a new recipe</button>
-    <div v-for="recipe in recipes">
+    <br>
+    <br>
+    Search for products here:<input type="text" v-model="searchTerm">
+    <br>
+    <br>
+    <br>
+    <div v-for="recipe in filterBy(recipes, searchTerm, 'title')">
+      <!-- Recipe.where(title: "apple") -->
       <p>id: {{ recipe.id }}</p>
       <p>title: {{ recipe.title }}</p>
       <p>ingredients: {{ recipe.ingredients }}</p>
@@ -40,11 +47,16 @@
 <script>
 import axios from "axios";
 // var axios = require("axios");
+import Vue2Filters from 'vue2-filters'
+
+
 
 export default {
+  mixins: [Vue2Filters.mixin],
   data: function() {
     return {
       message: "Welcome to actualize!",
+      searchTerm: '',
       name: "Brian",
       recipes: [],
       newRecipeTitle: "",
