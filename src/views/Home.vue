@@ -8,11 +8,14 @@
     <button v-on:click="addRecipe()">Add a new recipe</button>
     <br>
     <br>
-    Search for products here:<input type="text" v-model="searchTerm">
+    Search for products here:<input type="text" v-model="searchTerm" list="titles">
+    <datalist id="titles">
+      <option v-for="recipe in recipes">{{ recipe.title }}</option>
+    </datalist>
     <br>
     <br>
     <br>
-    <div v-for="recipe in filterBy(recipes, searchTerm, 'title')">
+    <div v-for="recipe in filterBy(recipes, searchTerm, 'title', 'ingredients')">
       <!-- Recipe.where(title: "apple") -->
       <p>id: {{ recipe.id }}</p>
       <p>title: {{ recipe.title }}</p>
