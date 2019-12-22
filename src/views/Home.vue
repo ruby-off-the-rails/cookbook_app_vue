@@ -19,32 +19,34 @@
     <hr>
     <!-- <div v-for="recipe in filterBy(recipes, searchTerm, 'title', 'ingredients')" v-bind:class="{selected: recipe.selected}"> -->
 
-    <div v-for="recipe in orderBy(recipes, sortAttribute, sortOrder)" v-bind:class="{selected: recipe.selected}">
-      <button v-on:click="selectRecipe(recipe)">Select Recipe</button>
-      <!-- Recipe.where(title: "apple") -->
-      <p>id: {{ recipe.id }}</p>
-      <p>title: {{ recipe.title }}</p>
-      <p>prep_time: {{ recipe.friendly_prep_time }}</p>
-      <p>ingredients: {{ recipe.ingredients }}</p>
-      <img v-bind:src="recipe.image_url" v-bind:alt="recipe.title">
-      <br>
+    <transition-group appear enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
+      <div v-for="recipe in orderBy(filterBy(recipes, searchTerm, 'title', 'ingredients'), sortAttribute, sortOrder)" v-bind:class="{selected: recipe.selected}" v-bind:key="recipe.id">
+        <button v-on:click="selectRecipe(recipe)">Select Recipe</button>
+        <!-- Recipe.where(title: "apple") -->
+        <p>id: {{ recipe.id }}</p>
+        <p>title: {{ recipe.title }}</p>
+        <p>prep_time: {{ recipe.friendly_prep_time }}</p>
+        <p>ingredients: {{ recipe.ingredients }}</p>
+        <img v-bind:src="recipe.image_url" v-bind:alt="recipe.title">
+        <br>
 
-      <button v-on:click="toggleInfo(recipe)">See more info</button>
+        <button v-on:click="toggleInfo(recipe)">See more info</button>
 
-      <div v-if="currentRecipe === recipe">
-        <p>prep_time: {{ recipe.prep_time }}</p>
-        <p>directions: {{ recipe.directions }}</p>
+        <div v-if="currentRecipe === recipe">
+          <p>prep_time: {{ recipe.prep_time }}</p>
+          <p>directions: {{ recipe.directions }}</p>
 
-        <p>Title: <input type="text" v-model="recipe.title"></p>
-        <p>Ingredients: <input type="text" v-model="recipe.ingredients"></p>
-        <p>Directions: <input type="text" v-model="recipe.directions"></p>
-        <p>Prep Time: <input type="text" v-model="recipe.prep_time"></p>
-        <p>Chef: <input type="text" v-model="recipe.chef"></p>
-        <button v-on:click="updateRecipe(recipe)">Update the recipe</button>
-        <button v-on:click="destroyRecipe(recipe)">Destroy Recipe</button>
+          <p>Title: <input type="text" v-model="recipe.title"></p>
+          <p>Ingredients: <input type="text" v-model="recipe.ingredients"></p>
+          <p>Directions: <input type="text" v-model="recipe.directions"></p>
+          <p>Prep Time: <input type="text" v-model="recipe.prep_time"></p>
+          <p>Chef: <input type="text" v-model="recipe.chef"></p>
+          <button v-on:click="updateRecipe(recipe)">Update the recipe</button>
+          <button v-on:click="destroyRecipe(recipe)">Destroy Recipe</button>
+        </div>
+        <hr>
       </div>
-      <hr>
-    </div>
+    </transition-group>
 
 
   </div>
@@ -68,6 +70,7 @@ import axios from "axios";
 // var axios = require("axios");
 import Vue2Filters from 'vue2-filters'
 
+import "animate.css/animate.css"
 
 
 export default {
