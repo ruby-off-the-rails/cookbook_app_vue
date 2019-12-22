@@ -5,7 +5,7 @@
     <p>Add the Ingredients of your new recipe here<input type="text" v-model="newRecipeIngredients"></p>
     <p>Add the PrepTime of your new recipe here<input type="text" v-model="newRecipePrepTime"></p>
     <p>Add the Directions of your new recipe here<input type="text" v-model="newRecipeDirections"></p>
-    <button v-on:click="addRecipe()">Add a new recipe</button>
+    <button v-on:click="addRecipe(recipe)">Add a new recipe</button>
     <br>
     <br>
     Search for products here:<input type="text" v-model="searchTerm" list="titles">
@@ -15,7 +15,8 @@
     <br>
     <br>
     <br>
-    <div v-for="recipe in filterBy(recipes, searchTerm, 'title', 'ingredients')">
+    <div v-for="recipe in filterBy(recipes, searchTerm, 'title', 'ingredients')" v-bind:class="{selected: recipe.selected}">
+      <button v-on:click="selectRecipe(recipe)">Select Recipe</button>
       <!-- Recipe.where(title: "apple") -->
       <p>id: {{ recipe.id }}</p>
       <p>title: {{ recipe.title }}</p>
@@ -45,6 +46,16 @@
 </template>
 
 <style>
+.wild {
+  background-color: red;
+}
+
+
+.selected {
+  color: white;
+  background-color: steelBlue;
+  transition: background-color 1s ease;
+}
 </style>
 
 <script>
@@ -146,6 +157,16 @@ export default {
         this.recipes.splice(index, 1);
 
       });
+    },
+    selectRecipe: function(theRecipe) {
+      console.log('selecting the recipe');
+      // if (theRecipe.selected === true) {
+      //   theRecipe.selected = false;
+      // } else {
+      //   theRecipe.selected = true;
+      // }
+      theRecipe.selected = !theRecipe.selected;
+      console.log(theRecipe);
     }
   }
 };
