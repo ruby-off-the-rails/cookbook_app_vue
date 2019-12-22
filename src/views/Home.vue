@@ -18,7 +18,8 @@
     <button v-on:click="setSortAttribute('title')">Sort by title</button>
     <hr>
     <!-- <div v-for="recipe in filterBy(recipes, searchTerm, 'title', 'ingredients')" v-bind:class="{selected: recipe.selected}"> -->
-    <div v-for="recipe in orderBy(recipes, sortAttribute)" v-bind:class="{selected: recipe.selected}">
+
+    <div v-for="recipe in orderBy(recipes, sortAttribute, sortOrder)" v-bind:class="{selected: recipe.selected}">
       <button v-on:click="selectRecipe(recipe)">Select Recipe</button>
       <!-- Recipe.where(title: "apple") -->
       <p>id: {{ recipe.id }}</p>
@@ -42,7 +43,7 @@
         <button v-on:click="updateRecipe(recipe)">Update the recipe</button>
         <button v-on:click="destroyRecipe(recipe)">Destroy Recipe</button>
       </div>
-     <hr>
+      <hr>
     </div>
 
 
@@ -83,7 +84,8 @@ export default {
       newRecipePrepTime: "",
       newRecipeDirections: "",
       currentRecipe: {},
-      sortAttribute: 'title'
+      sortAttribute: 'title',
+      sortOrder: 1
     };
   },
   created: function() {
@@ -175,6 +177,13 @@ export default {
     },
     setSortAttribute: function(theAttribute) {
       this.sortAttribute = theAttribute;
+      // this.sortOrder = -1;
+      console.log(this.sortOrder === 1);
+      if (this.sortOrder === 1) {
+        this.sortOrder = -1;
+      } else {
+        this.sortOrder = 1;
+      }
     }
   }
 };
