@@ -14,12 +14,16 @@
     </datalist>
     <br>
     <br>
-    <br>
-    <div v-for="recipe in filterBy(recipes, searchTerm, 'title', 'ingredients')" v-bind:class="{selected: recipe.selected}">
+    <button v-on:click="setSortAttribute('prep_time')">Sort by prep_time</button>
+    <button v-on:click="setSortAttribute('title')">Sort by title</button>
+    <hr>
+    <!-- <div v-for="recipe in filterBy(recipes, searchTerm, 'title', 'ingredients')" v-bind:class="{selected: recipe.selected}"> -->
+    <div v-for="recipe in orderBy(recipes, sortAttribute)" v-bind:class="{selected: recipe.selected}">
       <button v-on:click="selectRecipe(recipe)">Select Recipe</button>
       <!-- Recipe.where(title: "apple") -->
       <p>id: {{ recipe.id }}</p>
       <p>title: {{ recipe.title }}</p>
+      <p>prep_time: {{ recipe.friendly_prep_time }}</p>
       <p>ingredients: {{ recipe.ingredients }}</p>
       <img v-bind:src="recipe.image_url" v-bind:alt="recipe.title">
       <br>
@@ -78,7 +82,8 @@ export default {
       newRecipeIngredients: "",
       newRecipePrepTime: "",
       newRecipeDirections: "",
-      currentRecipe: {}
+      currentRecipe: {},
+      sortAttribute: 'title'
     };
   },
   created: function() {
@@ -167,6 +172,9 @@ export default {
       // }
       theRecipe.selected = !theRecipe.selected;
       console.log(theRecipe);
+    },
+    setSortAttribute: function(theAttribute) {
+      this.sortAttribute = theAttribute;
     }
   }
 };
